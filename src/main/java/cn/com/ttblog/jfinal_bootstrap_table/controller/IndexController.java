@@ -12,7 +12,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cn.com.ttblog.jfinal_bootstrap_table.Constant.ConfigConstant;
+import cn.com.ttblog.jfinal_bootstrap_table.constant.ConfigConstant;
 import cn.com.ttblog.jfinal_bootstrap_table.interceptor.LoginValidator;
 import cn.com.ttblog.jfinal_bootstrap_table.interceptor.TimeInterceptor;
 import cn.com.ttblog.jfinal_bootstrap_table.model.User;

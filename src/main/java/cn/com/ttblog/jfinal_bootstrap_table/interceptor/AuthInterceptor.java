@@ -4,10 +4,10 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cn.com.ttblog.jfinal_bootstrap_table.Constant.ConfigConstant;
-
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
+
+import cn.com.ttblog.jfinal_bootstrap_table.constant.ConfigConstant;
 
 /**
  * 认证拦截器
@@ -15,7 +15,7 @@ import com.jfinal.aop.Invocation;
  */
 public class AuthInterceptor implements Interceptor {
 	private static Logger authlogger=LoggerFactory.getLogger(AuthInterceptor.class);
-	@Override
+	
 	public void intercept(Invocation inv) {
 		authlogger.info("Before method invoking");
 		Object login=inv.getController().getSession().getAttribute(ConfigConstant.ISLOGIN);

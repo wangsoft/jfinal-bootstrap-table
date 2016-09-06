@@ -21,11 +21,9 @@ public class InjectionAttackFilter implements Filter {
 	boolean filterSQL = true;
 	boolean clickJacking = true;
 
-	@Override
 	public void destroy() {
 	}
 
-	@Override
 	public void doFilter(ServletRequest servletRequest,
 			ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
@@ -47,7 +45,6 @@ public class InjectionAttackFilter implements Filter {
 		}
 	}
 
-	@Override
 	public void init(FilterConfig config) throws ServletException {
 		String filterXSSParam = config.getInitParameter(FILTER_XSS_PARAM_NAME);
 		String filterSQLParam = config

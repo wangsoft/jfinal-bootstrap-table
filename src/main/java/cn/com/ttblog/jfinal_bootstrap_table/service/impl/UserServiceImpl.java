@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
-import cn.com.ttblog.jfinal_bootstrap_table.Constant.ConfigConstant;
+
+import cn.com.ttblog.jfinal_bootstrap_table.constant.ConfigConstant;
 import cn.com.ttblog.jfinal_bootstrap_table.service.IUserService;
 
 public class UserServiceImpl implements IUserService {
@@ -27,7 +28,6 @@ public class UserServiceImpl implements IUserService {
 		}
 	}
 
-	@Override
 	public int getNewData() {
 		return Db.queryLong("select count(id) from " + ConfigConstant.USERTABLE+" where DATE_FORMAT(NOW(),'%Y-%m-%d')=FROM_UNIXTIME(adddate,'%Y-%m-%d')").intValue();
 	}

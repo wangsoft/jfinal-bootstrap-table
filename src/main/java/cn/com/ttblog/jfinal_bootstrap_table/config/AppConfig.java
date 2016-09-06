@@ -2,14 +2,6 @@ package cn.com.ttblog.jfinal_bootstrap_table.config;
 
 import java.io.File;
 
-import javax.servlet.http.HttpServletRequest;
-
-import cn.com.ttblog.jfinal_bootstrap_table.interceptor.AuthInterceptor;
-import cn.com.ttblog.jfinal_bootstrap_table.model._MappingKit;
-
-import com.alibaba.druid.filter.stat.StatFilter;
-import com.alibaba.druid.util.JdbcConstants;
-import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -22,11 +14,12 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
 import com.jfinal.plugin.activerecord.ModelRecordElResolver;
-import com.jfinal.plugin.druid.DruidPlugin;
-import com.jfinal.plugin.druid.DruidStatViewHandler;
-import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
+import com.jfinal.plugin.hikaricp.HikariCPPlugin;
 import com.jfinal.render.ViewType;
+
+import cn.com.ttblog.jfinal_bootstrap_table.interceptor.AuthInterceptor;
+import cn.com.ttblog.jfinal_bootstrap_table.model._MappingKit;
 
 /**
  * jfinal配置文件
@@ -92,16 +85,11 @@ public class AppConfig extends JFinalConfig {
 	@Override
 	public void configPlugin(Plugins me) {
 		loadPropertyFile("config.txt");
-		DruidPlugin druid = new DruidPlugin(getProperty("jdbcUrl"),
+		HikariCPPlugin hikariCPPlugin = new HikariCPPlugin(getProperty("jdbcUrl"),
 				getProperty("user"), getProperty("password"));
-		druid.setDriverClass(getProperty("driver"));
-		druid.addFilter(new StatFilter());
-		WallFilter wall = new WallFilter();
-		wall.setDbType(JdbcConstants.MYSQL);
-		wall.setLogViolation(true);
-		druid.addFilter(wall);
-		me.add(druid);
-		ActiveRecordPlugin arp = new ActiveRecordPlugin(druid);
+		hikariCPPlugin.setDriverClass(getProperty("driver"));
+		me.add(hikariCPPlugin);
+		ActiveRecordPlugin arp = new ActiveRecordPlugin(hikariCPPlugin);
 		arp.setDevMode(true);
 		arp.setShowSql(true);
 		// 设置数据库大小写不敏感
@@ -145,17 +133,5 @@ public class AppConfig extends JFinalConfig {
 	 */
 	@Override
 	public void configHandler(Handlers me) {
-		// me.add(new ResourceHandler());
-		// 添加druid监控
-		DruidStatViewHandler dvh = new DruidStatViewHandler("/druid",
-				new IDruidStatViewAuth() {
-					public boolean isPermitted(HttpServletRequest request) {
-						// HttpSession hs = request.getSession(false);
-						// return (hs != null && hs.getAttribute("admin") !=
-						// null);
-						return true;
-					}
-				});
-		me.add(dvh);
 	}
 }

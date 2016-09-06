@@ -19,7 +19,6 @@ public class TimeInterceptor implements Interceptor {
 	private SimpleDateFormat format2 = new SimpleDateFormat(
 			"yyyyMMddHHmmssSSS");
 	
-	@Override
 	public void intercept(Invocation inv) {
 		timeInterceptor.info("time begin:" + format.format(new Date()));
 //		timeInterceptor.info("time inceptor-controller-getpara():"+inv.getController().getPara());

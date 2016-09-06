@@ -14,18 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import cn.com.ttblog.jfinal_bootstrap_table.Constant.ConfigConstant;
+import cn.com.ttblog.jfinal_bootstrap_table.constant.ConfigConstant;
 
 public class LoginFilter implements Filter {
 
 	private FilterConfig filterConfig;
 
-	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		this.filterConfig = filterConfig;
 	}
 
-	@Override
 	public void doFilter(ServletRequest servletRequest,
 			ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
@@ -89,7 +87,6 @@ public class LoginFilter implements Filter {
 		}
 	}
 
-	@Override
 	public void destroy() {
 
 	}
